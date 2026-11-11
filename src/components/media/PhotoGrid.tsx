@@ -1,10 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
+import { frameFor, type Photo } from "../../data/site";
 import { useLanguage } from "../../context/LanguageContext";
+import { cn } from "../../lib/cn";
 
 export type GalleryPhoto = {
   src: string;
   alt: string;
+  orientation?: Photo["orientation"];
 };
 
 export function PhotoGrid({ photos }: { photos: GalleryPhoto[] }) {
@@ -34,32 +37,38 @@ export function PhotoGrid({ photos }: { photos: GalleryPhoto[] }) {
 
   return (
     <>
-      <ul className={photos.length > 2 ? "columns-1 gap-5 sm:columns-2 lg:columns-3" : "grid gap-5 sm:grid-cols-2"}>
-        {photos.map((photo, photoIndex) => (
-          <li key={photo.src} className="mb-5 break-inside-avoid">
-            <figure>
-              <button
-                type="button"
-                onClick={() => setIndex(photoIndex)}
-                className="block w-full overflow-hidden bg-sand text-left"
-              >
-                <img
-                  src={photo.src}
-                  alt={photo.alt}
-                  className={
-                    photos.length > 2
-                      ? "w-full bg-navy"
-                      : "aspect-[4/3] w-full bg-navy object-cover object-[center_35%] transition duration-500 hover:scale-[1.02] motion-reduce:transform-none"
-                  }
-                  loading="lazy"
-                  decoding="async"
-                />
-                <span className="sr-only">{t.a11y.enlarge}</span>
-              </button>
-              <figcaption className="mt-2 text-sm leading-relaxed text-muted">{photo.alt}</figcaption>
-            </figure>
-          </li>
-        ))}
+      <ul className={cn("grid gap-5", photos.length > 1 && "sm:grid-cols-2")}>
+        {photos.map((photo, photoIndex) => {
+          const frame = frameFor(photo.orientation ?? "landscape");
+          return (
+            <li
+              key={photo.src}
+              className={cn(
+                photo.orientation === "panorama" && "sm:col-span-2",
+                photos.length === 1 && photo.orientation === "portrait" && "max-w-md",
+              )}
+            >
+              <figure>
+                <button
+                  type="button"
+                  onClick={() => setIndex(photoIndex)}
+                  className={cn("relative block w-full overflow-hidden bg-navy text-left", frame.aspect)}
+                >
+                  <img
+                    src={photo.src}
+                    alt={photo.alt}
+                    className="absolute inset-0 h-full w-full object-cover"
+                    style={{ objectPosition: frame.position }}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <span className="sr-only">{t.a11y.enlarge}</span>
+                </button>
+                <figcaption className="mt-2 text-sm leading-relaxed text-muted">{photo.alt}</figcaption>
+              </figure>
+            </li>
+          );
+        })}
       </ul>
 
       <dialog

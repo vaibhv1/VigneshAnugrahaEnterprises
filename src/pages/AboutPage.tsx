@@ -16,7 +16,10 @@ export function AboutPage() {
     { label: t.about.labels.proprietor, value: company.proprietor },
     { label: t.about.labels.gstin, value: company.gstin },
     { label: t.about.labels.address, value: t.about.address },
-    { label: t.about.labels.phone, value: company.phoneDisplay, href: `tel:${company.phoneTel}` },
+    {
+      label: t.about.labels.phone,
+      links: company.phones.map((phone) => ({ href: `tel:${phone.tel}`, value: phone.display })),
+    },
     { label: t.about.labels.email, value: company.email, href: `mailto:${company.email}` },
   ];
 
@@ -89,7 +92,15 @@ export function AboutPage() {
               <div key={row.label} className="grid gap-1 py-4 sm:grid-cols-[220px_1fr] sm:gap-6">
                 <dt className="text-sm font-medium text-muted">{row.label}</dt>
                 <dd className="text-navy">
-                  {row.href ? (
+                  {row.links ? (
+                    <span className="flex flex-col gap-1">
+                      {row.links.map((link) => (
+                        <a key={link.href} href={link.href} className="underline decoration-gold underline-offset-4">
+                          {link.value}
+                        </a>
+                      ))}
+                    </span>
+                  ) : row.href ? (
                     <a href={row.href} className="underline decoration-gold underline-offset-4">
                       {row.value}
                     </a>

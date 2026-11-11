@@ -157,6 +157,7 @@ export function HomePage() {
                     imageAlt={copy.alts[image.id as keyof typeof copy.alts]}
                     imagePosition={image.orientation === "landscape" ? "center" : "center 32%"}
                     year={project.year}
+                    category={t.projects.categories[project.category]}
                     title={copy.title}
                     meta={`${project.client} · ${copy.location}`}
                     summary={copy.card}
@@ -236,9 +237,11 @@ export function HomePage() {
             <Button to="/contact" variant="gold">
               {t.home.closeCta}
             </Button>
-            <Button href={`tel:${company.phoneTel}`} variant="ghost">
-              {company.phoneDisplay}
-            </Button>
+            {company.phones.map((phone) => (
+              <Button key={phone.tel} href={`tel:${phone.tel}`} variant="ghost">
+                {phone.display}
+              </Button>
+            ))}
           </>
         }
       />

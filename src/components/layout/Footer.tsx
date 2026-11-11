@@ -53,11 +53,13 @@ export function Footer() {
             {t.contact.map}
           </a>
           <ul className="mt-4 space-y-2 text-sm text-paper/80">
-            <li>
-              <a href={`tel:${company.phoneTel}`} className="hover:text-brass">
-                {company.phoneDisplay}
-              </a>
-            </li>
+            {company.phones.map((phone) => (
+              <li key={phone.tel}>
+                <a href={`tel:${phone.tel}`} className="hover:text-brass">
+                  {phone.display}
+                </a>
+              </li>
+            ))}
             <li>
               <a href={`mailto:${company.email}`} className="break-all hover:text-brass">
                 {company.email}

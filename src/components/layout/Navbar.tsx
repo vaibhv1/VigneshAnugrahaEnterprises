@@ -65,9 +65,13 @@ export function Navbar() {
       <div className="hidden bg-navy text-white lg:block">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-2 text-xs tracking-wide sm:px-8">
           <p>{t.home.eyebrow}</p>
-          <a href={`tel:${company.phoneTel}`} className="transition hover:text-gold">
-            {company.phoneDisplay}
-          </a>
+          <div className="flex items-center gap-4">
+            {company.phones.map((phone) => (
+              <a key={phone.tel} href={`tel:${phone.tel}`} className="transition hover:text-gold">
+                {phone.display}
+              </a>
+            ))}
+          </div>
         </div>
       </div>
       <header className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-5 py-3.5 sm:gap-4 sm:px-8">
@@ -130,6 +134,15 @@ export function Navbar() {
                 >
                   {t.nav[link.key]}
                 </NavLink>
+              </li>
+            ))}
+          </ul>
+          <ul className="mt-4 space-y-2">
+            {company.phones.map((phone) => (
+              <li key={phone.tel}>
+                <a href={`tel:${phone.tel}`} className="text-base text-navy">
+                  {phone.display}
+                </a>
               </li>
             ))}
           </ul>

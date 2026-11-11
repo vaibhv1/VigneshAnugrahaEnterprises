@@ -33,7 +33,7 @@ export function EnquiryForm() {
     defaultValues: { name: "", phone: "", email: "", interest: "general", message: "" },
   });
 
-  const onSubmit = (values: FormValues) => {
+  const onSubmit = (number: string) => (values: FormValues) => {
     const interest =
       values.interest === "general"
         ? en.form.general
@@ -48,12 +48,12 @@ export function EnquiryForm() {
       "",
       values.message.trim(),
     ].filter((line): line is string => line !== null);
-    const url = openWhatsApp(lines.join("\n"));
+    const url = openWhatsApp(lines.join("\n"), number);
     setSentUrl(url);
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-5">
+    <form onSubmit={handleSubmit(onSubmit(company.phones[0].whatsapp))} noValidate className="space-y-5">
       <div>
         <label htmlFor="name" className="text-sm font-medium text-navy">
           {t.form.name}
@@ -155,16 +155,20 @@ export function EnquiryForm() {
           </p>
         ) : null}
       </div>
-      <button
-        type="submit"
-        disabled={isSubmitting}
-        className="inline-flex bg-navy px-5 py-3 text-sm font-medium text-paper hover:bg-navy-deep disabled:opacity-60"
-      >
-        {isSubmitting ? t.form.sending : t.form.submit}
-      </button>
-      <p className="text-sm leading-relaxed text-muted">
-        {t.contact.formLede} {company.phoneDisplay}.
-      </p>
+      <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+        {company.phones.map((phone) => (
+          <button
+            key={phone.whatsapp}
+            type="button"
+            disabled={isSubmitting}
+            onClick={handleSubmit(onSubmit(phone.whatsapp))}
+            className="inline-flex bg-navy px-5 py-3 text-sm font-medium text-paper hover:bg-navy-deep disabled:opacity-60"
+          >
+            {t.contact.whatsapp} {phone.display}
+          </button>
+        ))}
+      </div>
+      <p className="text-sm leading-relaxed text-muted">{t.contact.formLede}</p>
       {sentUrl ? (
         <div className="border border-line bg-sand px-4 py-3 text-sm leading-relaxed" role="status">
           <p>{t.form.success}</p>

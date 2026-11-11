@@ -7,7 +7,9 @@ export function ProjectCard({
   imageSrc,
   imageAlt,
   imagePosition = "center 32%",
+  imageClassName,
   year,
+  category,
   title,
   meta,
   summary,
@@ -19,7 +21,9 @@ export function ProjectCard({
   imageSrc: string;
   imageAlt: string;
   imagePosition?: string;
+  imageClassName?: string;
   year: string;
+  category?: string;
   title: string;
   meta: string;
   summary: string;
@@ -41,10 +45,12 @@ export function ProjectCard({
         src={imageSrc}
         alt={imageAlt}
         objectPosition={imagePosition}
-        className={horizontal ? "aspect-[4/3] w-full lg:w-[52%]" : "aspect-[4/3] w-full"}
+        className={imageClassName ?? (horizontal ? "aspect-[4/3] w-full lg:w-[52%]" : "aspect-[4/3] w-full")}
       />
       <div className="flex flex-1 flex-col p-5 sm:p-6">
-        <p className="text-xs font-semibold uppercase tracking-[0.16em] text-gold-ink">{year}</p>
+        <p className="text-xs font-semibold uppercase tracking-[0.16em] text-gold-ink">
+          {category ? `${category} · ${year}` : year}
+        </p>
         <Title className="mt-2 font-display text-2xl leading-tight text-navy sm:text-3xl">{title}</Title>
         <p className="mt-2 text-sm text-muted">{meta}</p>
         <p className="mt-3 flex-1 text-sm leading-relaxed text-ink/85">{summary}</p>

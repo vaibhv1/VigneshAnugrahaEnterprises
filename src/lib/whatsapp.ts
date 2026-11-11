@@ -1,11 +1,11 @@
 import { company } from "../data/site";
 
-export function whatsappUrl(message: string) {
-  return `https://wa.me/${company.whatsapp}?text=${encodeURIComponent(message)}`;
+export function whatsappUrl(message: string, number: string = company.whatsapp) {
+  return `https://wa.me/${number}?text=${encodeURIComponent(message)}`;
 }
 
-export function openWhatsApp(message: string) {
-  const url = whatsappUrl(message);
+export function openWhatsApp(message: string, number: string = company.whatsapp) {
+  const url = whatsappUrl(message, number);
   window.open(url, "_blank", "noopener,noreferrer");
   return url;
 }

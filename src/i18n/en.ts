@@ -34,6 +34,7 @@ export const en = {
     mobileNav: "Mobile",
     breadcrumb: "Breadcrumb",
     photoUnavailable: "Photograph unavailable",
+    whatsappNumbers: "Choose a WhatsApp number",
   },
   nav: {
     home: "Home",
@@ -256,9 +257,18 @@ export const en = {
     client: "Client",
     location: "Location",
     year: "Year",
+    category: "Category",
+    filtersLabel: "Filter by category",
+    filterAll: "All",
+    categories: {
+      commercial: "Commercial",
+      residential: "Residential",
+      maintenance: "Maintenance",
+    },
     back: "All projects",
     previous: "Previous project",
     next: "Next project",
+    pagerLabel: "Other projects",
     photographs: "Photographs from the profile",
     photoDisclaimer:
       "Captions describe what is visible. They do not add scope beyond the written project entry.",
@@ -430,7 +440,7 @@ export const en = {
     whatsapp: "WhatsApp",
     formTitle: "Enquiry",
     formLede:
-      "The form opens WhatsApp on the published mobile number with your message ready to send. Submissions are not stored on this website.",
+      "Choose either WhatsApp number. The form opens WhatsApp with your message ready to send. Submissions are not stored on this website.",
   },
   form: {
     name: "Name",

@@ -8,7 +8,7 @@
  *   This site follows the table.
  * - Photographs after the labelled Project 03 page are not assigned to a project.
  * - Kannada text is a translation and needs a native-speaker review.
- * - The published mobile number is used for calls and WhatsApp. Confirm it is the enquiry line.
+ * - Calls and WhatsApp both use +91 79964 63956 and +91 63605 39661.
  * - Address punctuation is normalised from "#291, 2nd Floor, 1st main road 1st Cross, Kamalanagara, Bengaluru 560079, India".
  */
 export const company = {
@@ -17,6 +17,10 @@ export const company = {
   proprietor: "Santhosh Kumar H",
   gstin: "29ACGPE1528H1ZS",
   experienceYears: "3",
+  phones: [
+    { display: "+91 79964 63956", tel: "+917996463956", whatsapp: "917996463956" },
+    { display: "+91 63605 39661", tel: "+916360539661", whatsapp: "916360539661" },
+  ],
   phoneDisplay: "+91 79964 63956",
   phoneTel: "+917996463956",
   whatsapp: "917996463956",
@@ -119,11 +123,16 @@ export type Photo = {
   orientation: "portrait" | "landscape" | "panorama";
 };
 
+export const projectCategories = ["commercial", "residential", "maintenance"] as const;
+
+export type ProjectCategory = (typeof projectCategories)[number];
+
 export const projects: Record<
   ProjectSlug,
   {
     year: string;
     client: string;
+    category: ProjectCategory;
     plotArea: string | null;
     images: Photo[];
   }
@@ -131,6 +140,7 @@ export const projects: Record<
   "commercial-building-8th-mile": {
     year: "2025",
     client: "Prakash B S",
+    category: "commercial",
     plotArea: "4,500 sq ft",
     images: [
       { id: "frame", src: media("project-01.jpg"), orientation: "portrait" },
@@ -139,6 +149,7 @@ export const projects: Record<
   "residential-dasarahalli": {
     year: "2026",
     client: "Shiva Kumar",
+    category: "residential",
     plotArea: "1,200 sq ft",
     images: [
       { id: "masonry", src: media("project-02.jpg"), orientation: "portrait" },
@@ -147,6 +158,7 @@ export const projects: Record<
   "maintenance-vibgyor": {
     year: "2026",
     client: "VIBGYOR",
+    category: "maintenance",
     plotArea: null,
     images: [
       { id: "netFrame", src: media("project-03-a.jpg"), orientation: "portrait" },
@@ -157,6 +169,13 @@ export const projects: Record<
 
 export function coverPhoto(images: Photo[]) {
   return images.find((image) => image.orientation === "landscape") ?? images[0];
+}
+
+/** Frame matches the file so a portrait is not cropped into a wide, empty box. */
+export function frameFor(orientation: Photo["orientation"]) {
+  if (orientation === "portrait") return { aspect: "aspect-[9/16]", position: "center" };
+  if (orientation === "panorama") return { aspect: "aspect-[32/9]", position: "center" };
+  return { aspect: "aspect-video", position: "center" };
 }
 
 export const extraPhotos: Photo[] = [
