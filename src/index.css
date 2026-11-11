@@ -1,0 +1,69 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Outfit", "Noto Sans Kannada", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Fraunces", "Noto Serif Kannada", Georgia, "Times New Roman", serif;
+  --color-navy: #142f50;
+  --color-navy-deep: #0d2340;
+  --color-gold: #c99b3b;
+  --color-gold-bright: #d7ae4f;
+  --color-gold-ink: #7a5e24;
+  --color-ink: #1a2332;
+  --color-muted: #5c6b7a;
+  --color-line: #e2e8f0;
+  --color-mist: #f5f7fa;
+  --color-paper: #ffffff;
+  --color-sand: #f5f7fa;
+  --color-brass: #c99b3b;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+html[lang="kn"] {
+  --font-sans: "Noto Sans Kannada", "Outfit", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Noto Serif Kannada", "Fraunces", Georgia, serif;
+}
+
+body {
+  margin: 0;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  text-rendering: optimizeLegibility;
+}
+
+html[lang="kn"] body {
+  line-height: 1.7;
+}
+
+::selection {
+  background: #c99b3b;
+  color: #142f50;
+}
+
+:focus-visible {
+  outline: 2px solid #c99b3b;
+  outline-offset: 3px;
+}
+
+dialog {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  max-width: none;
+  max-height: none;
+  width: 100%;
+  height: 100%;
+}
+
+dialog::backdrop {
+  background: rgba(20, 47, 80, 0.78);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
