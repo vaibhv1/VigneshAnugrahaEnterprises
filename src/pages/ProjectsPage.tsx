@@ -1,4 +1,4 @@
-import { extraPhotos, projectOrder, projects } from "../data/site";
+import { coverPhoto, extraPhotos, projectOrder, projects } from "../data/site";
 import { useLanguage } from "../context/LanguageContext";
 import { PhotoGrid } from "../components/media/PhotoGrid";
 import { Container } from "../components/ui/Container";
@@ -31,13 +31,15 @@ export function ProjectsPage() {
           {projectOrder.map((slug) => {
             const project = projects[slug];
             const copy = t.projects.entries[slug];
+            const image = coverPhoto(project.images);
             return (
               <ProjectCard
                 key={slug}
                 layout="horizontal"
                 href={`/projects/${slug}`}
-                imageSrc={project.images[0].src}
-                imageAlt={copy.alts[project.images[0].id as keyof typeof copy.alts]}
+                imageSrc={image.src}
+                imageAlt={copy.alts[image.id as keyof typeof copy.alts]}
+                imagePosition={image.orientation === "landscape" ? "center" : "center 32%"}
                 year={project.year}
                 title={copy.title}
                 meta={`${project.client} · ${copy.location}`}

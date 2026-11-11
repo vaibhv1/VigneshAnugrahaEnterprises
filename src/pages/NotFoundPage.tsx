@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
 import { useLanguage } from "../context/LanguageContext";
+import { Button } from "../components/ui/Button";
 import { Container } from "../components/ui/Container";
 import { PageMeta } from "../components/ui/PageMeta";
 
@@ -9,13 +9,16 @@ export function NotFoundPage() {
   return (
     <>
       <PageMeta title={t.meta.notFoundTitle} description={t.notFound.body} />
-      <section className="py-24">
+      <section className="bg-navy py-20 text-white sm:py-28">
         <Container className="max-w-xl">
-          <h1 className="font-display text-4xl text-navy">{t.notFound.title}</h1>
-          <p className="mt-4 leading-relaxed text-muted">{t.notFound.body}</p>
-          <Link to="/" className="mt-6 inline-flex bg-navy px-5 py-3 text-sm font-medium text-paper">
-            {t.notFound.home}
-          </Link>
+          <div className="h-px w-14 bg-gold" aria-hidden="true" />
+          <h1 className="mt-4 font-display text-4xl leading-tight sm:text-5xl">{t.notFound.title}</h1>
+          <p className="mt-4 leading-relaxed text-white/80">{t.notFound.body}</p>
+          <div className="mt-8">
+            <Button to="/" variant="gold">
+              {t.notFound.home}
+            </Button>
+          </div>
         </Container>
       </section>
     </>

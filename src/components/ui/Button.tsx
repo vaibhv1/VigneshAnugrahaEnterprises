@@ -20,17 +20,25 @@ type Shared = {
   children: ReactNode;
 };
 
-type AsLink = Shared & { to: string };
+type AsLink = Shared & { to: string; href?: undefined };
+type AsAnchor = Shared & { href: string; to?: undefined };
 type AsButton = Shared &
-  { to?: undefined } & Omit<ButtonHTMLAttributes<HTMLButtonElement>, "className" | "children">;
+  { to?: undefined; href?: undefined } & Omit<ButtonHTMLAttributes<HTMLButtonElement>, "className" | "children">;
 
-export function Button({ variant = "primary", className, children, ...props }: AsLink | AsButton) {
+export function Button({ variant = "primary", className, children, ...props }: AsLink | AsAnchor | AsButton) {
   const classes = cn(base, variants[variant], className);
   if ("to" in props && props.to) {
     return (
       <Link to={props.to} className={classes}>
         {children}
       </Link>
+    );
+  }
+  if ("href" in props && props.href) {
+    return (
+      <a href={props.href} className={classes}>
+        {children}
+      </a>
     );
   }
   const { type = "button", ...buttonProps } = props as AsButton;

@@ -11,11 +11,13 @@ export function Logo({ tone = "dark" }: { tone?: "dark" | "light" }) {
       <span className={`grid h-11 w-11 shrink-0 place-items-center font-display text-lg tracking-wide ${mark}`} aria-hidden="true">
         VA
       </span>
-      <span className="hidden min-w-0 leading-tight sm:block">
-        <span className={`block truncate text-[0.72rem] font-semibold tracking-[0.14em] ${name}`}>
+      <span className="min-w-0 leading-tight">
+        <span className={`block truncate text-[0.68rem] font-semibold tracking-[0.12em] sm:text-[0.78rem] sm:tracking-[0.16em] ${name}`}>
           VIGNESH ANUGRAHA
         </span>
-        <span className={`block text-[0.68rem] tracking-[0.2em] ${sub}`}>ENTERPRISES</span>
+        <span className={`block text-[0.62rem] tracking-[0.18em] sm:text-[0.68rem] sm:tracking-[0.22em] ${sub}`}>
+          ENTERPRISES
+        </span>
       </span>
     </Link>
   );

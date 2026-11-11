@@ -155,6 +155,10 @@ export const projects: Record<
   },
 };
 
+export function coverPhoto(images: Photo[]) {
+  return images.find((image) => image.orientation === "landscape") ?? images[0];
+}
+
 export const extraPhotos: Photo[] = [
   { id: "court", src: media("site-court.jpg"), orientation: "landscape" },
   { id: "facade", src: media("site-facade.jpg"), orientation: "landscape" },

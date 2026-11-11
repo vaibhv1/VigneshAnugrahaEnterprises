@@ -1,12 +1,14 @@
 import { Link, useParams } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import {
+  coverPhoto,
   maintenanceScopeOrder,
   projectOrder,
   projects,
   type ProjectSlug,
 } from "../data/site";
 import { useLanguage } from "../context/LanguageContext";
+import { CoverImage } from "../components/media/CoverImage";
 import { PhotoGrid } from "../components/media/PhotoGrid";
 import { Breadcrumb } from "../components/ui/Breadcrumb";
 import { Container } from "../components/ui/Container";
@@ -29,6 +31,7 @@ export function ProjectDetailPage() {
   const index = projectOrder.indexOf(slug);
   const previous = index > 0 ? projectOrder[index - 1] : null;
   const next = index < projectOrder.length - 1 ? projectOrder[index + 1] : null;
+  const lead = coverPhoto(project.images);
   const photos = project.images.map((image) => ({
     src: image.src,
     alt: copy.alts[image.id as keyof typeof copy.alts],
@@ -47,8 +50,9 @@ export function ProjectDetailPage() {
         title={`${copy.title} | ${t.meta.projectTitleSuffix}`}
         description={copy.summary}
       />
-      <section className="border-b border-line bg-mist py-10 sm:py-14">
-        <Container>
+      <section className="border-b border-line bg-mist">
+        <div className="grid lg:grid-cols-[minmax(0,1fr)_minmax(0,0.9fr)]">
+        <Container className="py-10 sm:py-14 lg:max-w-none lg:px-12 lg:py-16">
           <Breadcrumb
             items={[
               { label: t.nav.home, to: "/" },
@@ -68,6 +72,13 @@ export function ProjectDetailPage() {
             ))}
           </dl>
         </Container>
+        <CoverImage
+          src={lead.src}
+          alt={copy.alts[lead.id as keyof typeof copy.alts]}
+          objectPosition={lead.orientation === "landscape" ? "center" : "center 32%"}
+          className="aspect-[4/3] w-full lg:aspect-auto lg:h-full lg:min-h-[28rem]"
+        />
+        </div>
       </section>
       <section className="py-12 sm:py-16">
         <Container className="grid gap-10 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)]">

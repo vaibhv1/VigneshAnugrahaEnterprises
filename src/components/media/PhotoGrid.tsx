@@ -46,7 +46,11 @@ export function PhotoGrid({ photos }: { photos: GalleryPhoto[] }) {
                 <img
                   src={photo.src}
                   alt={photo.alt}
-                  className="w-full transition duration-500 hover:scale-[1.02]"
+                  className={
+                    photos.length > 2
+                      ? "w-full bg-navy"
+                      : "aspect-[4/3] w-full bg-navy object-cover object-[center_35%] transition duration-500 hover:scale-[1.02] motion-reduce:transform-none"
+                  }
                   loading="lazy"
                   decoding="async"
                 />

@@ -4,12 +4,12 @@ import {
   environmentOrder,
   qualityOrder,
   safetyOrder,
-  stepOrder,
 } from "../data/site";
 import { useLanguage } from "../context/LanguageContext";
 import { Container } from "../components/ui/Container";
 import { PageBanner } from "../components/ui/PageBanner";
 import { PageMeta } from "../components/ui/PageMeta";
+import { ProcessTimeline } from "../components/ui/ProcessTimeline";
 import { SectionHeading } from "../components/ui/SectionHeading";
 
 export function ApproachPage() {
@@ -28,19 +28,9 @@ export function ApproachPage() {
         ]}
       />
 
-      <section className="py-16 sm:py-20">
+      <section className="py-20 sm:py-24">
         <Container>
-          <ol className="space-y-0">
-            {stepOrder.map((id, index) => (
-              <li key={id} className="grid gap-3 border-t border-line py-6 sm:grid-cols-[120px_1fr]">
-                <p className="font-display text-3xl text-gold-ink">0{index + 1}</p>
-                <div>
-                  <h2 className="font-display text-3xl text-navy">{t.approach.steps[id].title}</h2>
-                  <p className="mt-2 max-w-3xl leading-relaxed text-ink/85">{t.approach.steps[id].body}</p>
-                </div>
-              </li>
-            ))}
-          </ol>
+          <ProcessTimeline titleAs="h2" />
         </Container>
       </section>
 

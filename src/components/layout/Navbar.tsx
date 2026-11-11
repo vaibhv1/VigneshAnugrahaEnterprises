@@ -61,8 +61,8 @@ export function Navbar() {
   }, [open]);
 
   return (
-    <div className="sticky top-0 z-40 border-b border-line bg-white/95 backdrop-blur">
-      <div className="hidden bg-navy text-white sm:block">
+    <div className="sticky top-0 z-40 border-b border-line bg-white/95 shadow-sm backdrop-blur">
+      <div className="hidden bg-navy text-white lg:block">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-2 text-xs tracking-wide sm:px-8">
           <p>{t.home.eyebrow}</p>
           <a href={`tel:${company.phoneTel}`} className="transition hover:text-gold">
@@ -70,9 +70,9 @@ export function Navbar() {
           </a>
         </div>
       </div>
-      <header className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-3 sm:px-8">
+      <header className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-5 py-3.5 sm:gap-4 sm:px-8">
         <Logo />
-        <nav className="hidden items-center gap-4 lg:flex xl:gap-5" aria-label={t.a11y.primaryNav}>
+        <nav className="hidden items-center gap-6 lg:flex" aria-label={t.a11y.primaryNav}>
           {primaryNav.map((link) => (
             <NavLink
               key={link.to}
@@ -99,7 +99,9 @@ export function Navbar() {
             <Phone className="h-4 w-4" aria-hidden="true" />
           </a>
           <span className="hidden sm:inline-flex">
-            <Button to="/contact">{t.nav.enquire}</Button>
+            <Button to="/contact" variant="gold">
+              {t.nav.enquire}
+            </Button>
           </span>
           <button
             type="button"
@@ -131,7 +133,7 @@ export function Navbar() {
               </li>
             ))}
           </ul>
-          <Button to="/contact" className="mt-4">
+          <Button to="/contact" variant="gold" className="mt-4">
             {t.nav.enquire}
           </Button>
         </nav>

@@ -21,21 +21,21 @@ export function ServicesPage() {
           { label: t.nav.services },
         ]}
       />
-      <section className="py-14 sm:py-16">
-        <Container className="space-y-4">
+      <section className="bg-mist py-20 sm:py-24">
+        <Container className="grid gap-5">
           {serviceOrder.map((id, index) => {
             const Icon = serviceIcons[id];
             const item = t.services.items[id];
             return (
-              <article id={id} key={id} className="scroll-mt-32 grid gap-4 border border-line p-5 sm:grid-cols-[auto_1fr] sm:p-7">
-                <div className="flex items-start gap-4">
-                  <span className="font-display text-2xl text-gold-ink">0{index + 1}</span>
-                  <Icon className="mt-1 h-5 w-5 text-navy" aria-hidden="true" />
+              <article id={id} key={id} className="scroll-mt-32 border border-line bg-white p-6 sm:p-8">
+                <div className="flex items-start justify-between gap-4">
+                  <span className="grid h-12 w-12 place-items-center bg-mist text-navy">
+                    <Icon className="h-5 w-5" aria-hidden="true" />
+                  </span>
+                  <span className="font-display text-lg text-gold-ink">{String(index + 1).padStart(2, "0")}</span>
                 </div>
-                <div>
-                  <h2 className="font-display text-3xl text-navy">{item.title}</h2>
-                  <p className="mt-3 max-w-3xl leading-relaxed text-ink/85">{item.body}</p>
-                </div>
+                <h2 className="mt-6 font-display text-3xl text-navy">{item.title}</h2>
+                <p className="mt-3 max-w-3xl leading-relaxed text-ink/85">{item.body}</p>
               </article>
             );
           })}

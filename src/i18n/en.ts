@@ -33,6 +33,7 @@ export const en = {
     primaryNav: "Primary",
     mobileNav: "Mobile",
     breadcrumb: "Breadcrumb",
+    photoUnavailable: "Photograph unavailable",
   },
   nav: {
     home: "Home",
@@ -61,9 +62,9 @@ export const en = {
     eyebrow: "Bengaluru, Karnataka",
     title: "Vignesh Anugraha Enterprises",
     tagline: "Building with integrity. Delivering with commitment.",
-    lede: "A proprietorship engaged in construction-related contracting, material supply, installation and project execution. We support clients with practical, coordinated solutions across civil construction, renovation, infrastructure and building services.",
-    primaryCta: "Enquire on WhatsApp",
-    secondaryCta: "View selected work",
+    lede: "Construction, infrastructure and building maintenance solutions delivered with a focus on quality, safety and accountability.",
+    primaryCta: "Explore services",
+    secondaryCta: "View projects",
     heroCaptionKicker: "Profile photograph · Project 01",
     heroCaption:
       "Commercial building, 8th Mile, Bengaluru, 2025. The photograph shows a multi-storey concrete frame during construction.",
@@ -84,12 +85,12 @@ export const en = {
     servicesLede:
       "The exact scope, specifications, quantities and method of execution are confirmed project by project.",
     servicesLink: "Read each service",
-    sectorsIndex: "03",
+    sectorsIndex: "04",
     sectorsEyebrow: "Where we work",
     sectorsTitle: "Sectors the company is positioned to support.",
     sectorsLede:
       "Subject to project scope, technical suitability and the commercial terms that are agreed.",
-    workIndex: "04",
+    workIndex: "03",
     workEyebrow: "Selected work",
     workTitle: "Three projects named in the company profile.",
     workLede:

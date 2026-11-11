@@ -23,7 +23,7 @@ export function ContactPage() {
           { label: t.nav.contact },
         ]}
       />
-      <section className="py-14 sm:py-16">
+      <section className="py-20 sm:py-24">
         <Container className="grid gap-12 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
           <div>
             <h2 className="font-display text-3xl text-navy">{t.footer.visit}</h2>
@@ -88,7 +88,7 @@ export function ContactPage() {
               </div>
             </dl>
           </div>
-          <div className="border border-line bg-sand p-5 sm:p-8">
+          <div className="border border-line bg-white p-5 sm:p-8">
             <h2 className="font-display text-3xl text-navy">{t.contact.formTitle}</h2>
             <p className="mt-3 text-sm leading-relaxed text-muted">{t.contact.formLede}</p>
             <div className="mt-6">

@@ -54,11 +54,12 @@ export function AboutPage() {
       <section className="py-16 sm:py-20">
         <Container>
           <SectionHeading eyebrow={t.values.eyebrow} title={t.values.title} />
-          <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {valueOrder.map((id) => (
-              <li key={id} className="border border-line p-5">
-                <h3 className="font-display text-2xl text-navy">{t.values[id].title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted">{t.values[id].body}</p>
+          <ul className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {valueOrder.map((id, index) => (
+              <li key={id} className="border border-line border-t-2 border-t-gold bg-white p-6">
+                <p className="font-display text-lg text-gold-ink">0{index + 1}</p>
+                <h3 className="mt-3 font-display text-2xl text-navy">{t.values[id].title}</h3>
+                <p className="mt-3 text-sm leading-relaxed text-muted">{t.values[id].body}</p>
               </li>
             ))}
           </ul>
