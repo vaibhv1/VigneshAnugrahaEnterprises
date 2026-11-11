@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
 
-# sitemap.xml is omitted until a public domain is confirmed.
-# Sitemap locations must be absolute URLs, and the company profile does not publish one.
+Sitemap: https://vaibhv1.github.io/VigneshAnugrahaEnterprises/sitemap.xml

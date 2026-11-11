@@ -10,10 +10,16 @@ import { ProjectDetailPage } from "./pages/ProjectDetailPage";
 import { ProjectsPage } from "./pages/ProjectsPage";
 import { ServicesPage } from "./pages/ServicesPage";
 
+function routerBasename() {
+  const base = import.meta.env.BASE_URL;
+  if (base === "/") return undefined;
+  return base.endsWith("/") ? base.slice(0, -1) : base;
+}
+
 export default function App() {
   return (
     <LanguageProvider>
-      <BrowserRouter>
+      <BrowserRouter basename={routerBasename()}>
         <Routes>
           <Route element={<Layout />}>
             <Route index element={<HomePage />} />

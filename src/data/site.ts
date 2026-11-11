@@ -109,6 +109,10 @@ export const projectOrder: ProjectSlug[] = [
   "maintenance-vibgyor",
 ];
 
+function media(file: string) {
+  return `${import.meta.env.BASE_URL}media/${file}`;
+}
+
 export type Photo = {
   id: string;
   src: string;
@@ -129,7 +133,7 @@ export const projects: Record<
     client: "Prakash B S",
     plotArea: "4,500 sq ft",
     images: [
-      { id: "frame", src: "/media/project-01.jpg", orientation: "portrait" },
+      { id: "frame", src: media("project-01.jpg"), orientation: "portrait" },
     ],
   },
   "residential-dasarahalli": {
@@ -137,7 +141,7 @@ export const projects: Record<
     client: "Shiva Kumar",
     plotArea: "1,200 sq ft",
     images: [
-      { id: "masonry", src: "/media/project-02.jpg", orientation: "portrait" },
+      { id: "masonry", src: media("project-02.jpg"), orientation: "portrait" },
     ],
   },
   "maintenance-vibgyor": {
@@ -145,20 +149,20 @@ export const projects: Record<
     client: "VIBGYOR",
     plotArea: null,
     images: [
-      { id: "netFrame", src: "/media/project-03-a.jpg", orientation: "portrait" },
-      { id: "netRoof", src: "/media/project-03-b.jpg", orientation: "landscape" },
+      { id: "netFrame", src: media("project-03-a.jpg"), orientation: "portrait" },
+      { id: "netRoof", src: media("project-03-b.jpg"), orientation: "landscape" },
     ],
   },
 };
 
 export const extraPhotos: Photo[] = [
-  { id: "court", src: "/media/site-court.jpg", orientation: "landscape" },
-  { id: "facade", src: "/media/site-facade.jpg", orientation: "landscape" },
-  { id: "courtJoint", src: "/media/site-court-joint.jpg", orientation: "landscape" },
-  { id: "stair", src: "/media/site-stair.jpg", orientation: "portrait" },
-  { id: "enclosure", src: "/media/site-enclosure.jpg", orientation: "portrait" },
-  { id: "drain", src: "/media/site-drain.jpg", orientation: "portrait" },
-  { id: "basketball", src: "/media/site-basketball.jpg", orientation: "landscape" },
-  { id: "netA", src: "/media/site-net-a.jpg", orientation: "panorama" },
-  { id: "netB", src: "/media/site-net-b.jpg", orientation: "panorama" },
+  { id: "court", src: media("site-court.jpg"), orientation: "landscape" },
+  { id: "facade", src: media("site-facade.jpg"), orientation: "landscape" },
+  { id: "courtJoint", src: media("site-court-joint.jpg"), orientation: "landscape" },
+  { id: "stair", src: media("site-stair.jpg"), orientation: "portrait" },
+  { id: "enclosure", src: media("site-enclosure.jpg"), orientation: "portrait" },
+  { id: "drain", src: media("site-drain.jpg"), orientation: "portrait" },
+  { id: "basketball", src: media("site-basketball.jpg"), orientation: "landscape" },
+  { id: "netA", src: media("site-net-a.jpg"), orientation: "panorama" },
+  { id: "netB", src: media("site-net-b.jpg"), orientation: "panorama" },
 ];
