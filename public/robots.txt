@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://vaibhv1.github.io/VigneshAnugrahaEnterprises/sitemap.xml
+Sitemap: https://vigneshanugrahaenterprises.in/sitemap.xml

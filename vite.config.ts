@@ -4,10 +4,9 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 
-const repository = "VigneshAnugrahaEnterprises";
-
 export default defineConfig({
-  base: process.env.GITHUB_PAGES === "true" ? `/${repository}/` : "/",
+  // vigneshanugrahaenterprises.in is served from the site root.
+  base: "/",
   plugins: [
     react(),
     tailwindcss(),
