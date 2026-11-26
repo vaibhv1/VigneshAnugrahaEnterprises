@@ -7,7 +7,6 @@
  * - The cover graphic says "1–3 years"; the company information table says 3 years.
  *   This site follows the table.
  * - Photographs after the labelled Project 03 page are not assigned to a project.
- * - Kannada text is a translation and needs a native-speaker review.
  * - Calls and WhatsApp both use +91 79964 63956 and +91 63605 39661.
  * - Address punctuation is normalised from "#291, 2nd Floor, 1st main road 1st Cross, Kamalanagara, Bengaluru 560079, India".
  */

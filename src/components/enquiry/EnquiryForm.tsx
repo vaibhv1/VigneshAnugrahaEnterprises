@@ -23,7 +23,7 @@ function isMobile(value: string) {
 }
 
 export function EnquiryForm() {
-  const { t, lang } = useLanguage();
+  const { t } = useLanguage();
   const [sentUrl, setSentUrl] = useState<string | null>(null);
   const {
     register,
@@ -44,7 +44,6 @@ export function EnquiryForm() {
       `Phone: ${values.phone.trim()}`,
       values.email.trim() ? `Email: ${values.email.trim()}` : null,
       `Interest: ${interest}`,
-      lang === "kn" ? "Form language: Kannada" : null,
       "",
       values.message.trim(),
     ].filter((line): line is string => line !== null);

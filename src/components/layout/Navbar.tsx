@@ -3,37 +3,10 @@ import { NavLink, useLocation } from "react-router-dom";
 import { Menu, Phone, X } from "lucide-react";
 import { company } from "../../data/site";
 import { primaryNav } from "../../data/navigation";
-import { useLanguage, type Lang } from "../../context/LanguageContext";
+import { useLanguage } from "../../context/LanguageContext";
 import { cn } from "../../lib/cn";
 import { Button } from "../ui/Button";
 import { Logo } from "./Logo";
-
-function LanguageToggle() {
-  const { lang, setLang, t } = useLanguage();
-  const options: { id: Lang; label: string }[] = [
-    { id: "en", label: "EN" },
-    { id: "kn", label: "ಕನ್ನಡ" },
-  ];
-
-  return (
-    <div role="group" aria-label={t.a11y.language} className="flex border border-line">
-      {options.map((option) => (
-        <button
-          key={option.id}
-          type="button"
-          aria-pressed={lang === option.id}
-          onClick={() => setLang(option.id)}
-          className={cn(
-            "px-2.5 py-1.5 text-xs font-semibold transition duration-200",
-            lang === option.id ? "bg-navy text-white" : "bg-white text-navy hover:bg-mist",
-          )}
-        >
-          {option.label}
-        </button>
-      ))}
-    </div>
-  );
-}
 
 export function Navbar() {
   const { t } = useLanguage();
@@ -94,7 +67,6 @@ export function Navbar() {
           ))}
         </nav>
         <div className="flex items-center gap-2 sm:gap-3">
-          <LanguageToggle />
           <a
             href={`tel:${company.phoneTel}`}
             className="inline-flex h-10 w-10 items-center justify-center border border-line text-navy lg:hidden"

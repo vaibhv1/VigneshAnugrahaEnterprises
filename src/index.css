@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Outfit", "Noto Sans Kannada", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Fraunces", "Noto Serif Kannada", Georgia, "Times New Roman", serif;
+  --font-sans: "Outfit", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Fraunces", Georgia, "Times New Roman", serif;
   --color-navy: #142f50;
   --color-navy-deep: #0d2340;
   --color-gold: #c99b3b;
@@ -21,21 +21,12 @@ html {
   scroll-behavior: smooth;
 }
 
-html[lang="kn"] {
-  --font-sans: "Noto Sans Kannada", "Outfit", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Noto Serif Kannada", "Fraunces", Georgia, serif;
-}
-
 body {
   margin: 0;
   background: var(--color-paper);
   color: var(--color-ink);
   font-family: var(--font-sans);
   text-rendering: optimizeLegibility;
-}
-
-html[lang="kn"] body {
-  line-height: 1.7;
 }
 
 ::selection {
