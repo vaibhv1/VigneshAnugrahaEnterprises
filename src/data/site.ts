@@ -24,7 +24,7 @@ export const company = {
   phoneDisplay: "+91 79964 63956",
   phoneTel: "+917996463956",
   whatsapp: "917996463956",
-  email: "kavyakushi677@gmail.com",
+  email: "vigneshanugrahaenterprises@outlook.com",
   addressEn:
     "#291, 2nd Floor, 1st Main Road, 1st Cross, Kamalanagara, Bengaluru 560079, India",
   mapsQuery:
