@@ -1,12 +1,17 @@
 import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { MessageCircle } from "lucide-react";
-import { company } from "../../data/site";
+import { company, serviceOrder, type ServiceId } from "../../data/site";
 import { useLanguage } from "../../context/LanguageContext";
+import { en, type Dictionary } from "../../i18n/en";
+import { track } from "../../lib/analytics";
 import { openWhatsApp } from "../../lib/whatsapp";
 
 export function WhatsAppButton() {
   const { t } = useLanguage();
+  const { pathname, hash } = useLocation();
   const [open, setOpen] = useState(false);
+  const message = contextMessage(pathname, hash, t);
 
   useEffect(() => {
     if (!open) return;
@@ -27,7 +32,8 @@ export function WhatsAppButton() {
               type="button"
               className="block w-full px-4 py-3 text-left text-sm font-semibold text-navy hover:bg-mist"
               onClick={() => {
-                openWhatsApp(t.whatsappGreeting, phone.whatsapp);
+                track("whatsapp_click", { location: "floating" });
+                openWhatsApp(message, phone.whatsapp);
                 setOpen(false);
               }}
             >
@@ -48,4 +54,20 @@ export function WhatsAppButton() {
       </button>
     </div>
   );
+}
+
+function contextMessage(pathname: string, hash: string, t: Dictionary) {
+  if (pathname.startsWith("/projects/")) {
+    const slug = pathname.split("/")[2] as keyof typeof en.projects.entries;
+    const title = t.projects.entries[slug]?.title;
+    if (title) return `Hello, I would like to enquire about ${title} with Vignesh Anugraha Enterprises.`;
+  }
+  if (pathname.startsWith("/services")) {
+    const id = hash.replace("#", "");
+    if ((serviceOrder as readonly string[]).includes(id)) {
+      return `Hello, I would like to enquire about ${t.services.items[id as ServiceId].title} with Vignesh Anugraha Enterprises.`;
+    }
+    return "Hello, I would like to enquire about your services with Vignesh Anugraha Enterprises.";
+  }
+  return t.whatsappGreeting;
 }

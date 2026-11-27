@@ -4,6 +4,7 @@ import { Container } from "../components/ui/Container";
 import { Note } from "../components/ui/Note";
 import { PageBanner } from "../components/ui/PageBanner";
 import { PageMeta } from "../components/ui/PageMeta";
+import { EnquiryBand } from "../components/ui/EnquiryBand";
 import { SectionHeading } from "../components/ui/SectionHeading";
 
 export function AboutPage() {
@@ -21,6 +22,7 @@ export function AboutPage() {
       links: company.phones.map((phone) => ({ href: `tel:${phone.tel}`, value: phone.display })),
     },
     { label: t.about.labels.email, value: company.email, href: `mailto:${company.email}` },
+    { label: t.contact.hoursLabel, value: t.contact.hoursValue },
   ];
 
   return (
@@ -111,11 +113,19 @@ export function AboutPage() {
               </div>
             ))}
           </dl>
+          <a
+            href={company.profilePdf}
+            download
+            className="mt-6 inline-flex text-sm font-semibold text-navy underline decoration-gold underline-offset-4"
+          >
+            {t.about.downloadProfile}
+          </a>
           <div className="mt-6">
             <Note>{t.about.experienceNote}</Note>
           </div>
         </Container>
       </section>
+      <EnquiryBand />
     </>
   );
 }

@@ -4,6 +4,7 @@ import { Menu, Phone, X } from "lucide-react";
 import { company } from "../../data/site";
 import { primaryNav } from "../../data/navigation";
 import { useLanguage } from "../../context/LanguageContext";
+import { track } from "../../lib/analytics";
 import { cn } from "../../lib/cn";
 import { Button } from "../ui/Button";
 import { Logo } from "./Logo";
@@ -40,7 +41,12 @@ export function Navbar() {
           <p>{t.home.eyebrow}</p>
           <div className="flex items-center gap-4">
             {company.phones.map((phone) => (
-              <a key={phone.tel} href={`tel:${phone.tel}`} className="transition hover:text-gold">
+              <a
+                key={phone.tel}
+                href={`tel:${phone.tel}`}
+                className="transition hover:text-gold"
+                onClick={() => track("phone_click", { location: "header" })}
+              >
                 {phone.display}
               </a>
             ))}
@@ -71,11 +77,12 @@ export function Navbar() {
             href={`tel:${company.phoneTel}`}
             className="inline-flex h-10 w-10 items-center justify-center border border-line text-navy lg:hidden"
             aria-label={company.phoneDisplay}
+            onClick={() => track("phone_click", { location: "header" })}
           >
             <Phone className="h-4 w-4" aria-hidden="true" />
           </a>
           <span className="hidden sm:inline-flex">
-            <Button to="/contact" variant="gold">
+            <Button to="/contact" variant="gold" onClick={() => track("enquiry_cta_click", { location: "header" })}>
               {t.nav.enquire}
             </Button>
           </span>
@@ -112,13 +119,13 @@ export function Navbar() {
           <ul className="mt-4 space-y-2">
             {company.phones.map((phone) => (
               <li key={phone.tel}>
-                <a href={`tel:${phone.tel}`} className="text-base text-navy">
+                <a href={`tel:${phone.tel}`} className="text-base text-navy" onClick={() => track("phone_click", { location: "header" })}>
                   {phone.display}
                 </a>
               </li>
             ))}
           </ul>
-          <Button to="/contact" variant="gold" className="mt-4">
+          <Button to="/contact" variant="gold" className="mt-4" onClick={() => track("enquiry_cta_click", { location: "header" })}>
             {t.nav.enquire}
           </Button>
         </nav>

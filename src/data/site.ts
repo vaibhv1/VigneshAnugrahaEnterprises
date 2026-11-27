@@ -3,7 +3,7 @@
  * Do not add clients, certifications, counts or testimonials here.
  *
  * Confirm before publishing:
- * - Office hours are not in the profile.
+ * - Office hours are 9:00 am to 10:00 pm, all seven days, as supplied for the website.
  * - The cover graphic says "1–3 years"; the company information table says 3 years.
  *   This site follows the table.
  * - Photographs after the labelled Project 03 page are not assigned to a project.
@@ -24,10 +24,12 @@ export const company = {
   phoneTel: "+917996463956",
   whatsapp: "917996463956",
   email: "vigneshanugrahaenterprises@outlook.com",
+  url: "https://vigneshanugrahaenterprises.in",
   addressEn:
     "#291, 2nd Floor, 1st Main Road, 1st Cross, Kamalanagara, Bengaluru 560079, India",
   mapsQuery:
     "291 2nd Floor 1st Main Road 1st Cross Kamalanagara Bengaluru 560079",
+  profilePdf: `${import.meta.env.BASE_URL}vignesh-anugraha-enterprises-profile.pdf`,
 } as const;
 
 export const serviceOrder = [
@@ -102,15 +104,21 @@ export const maintenanceScopeOrder = [
 ] as const;
 
 export type ProjectSlug =
-  | "commercial-building-8th-mile"
-  | "residential-dasarahalli"
-  | "maintenance-vibgyor";
+  | "commercial-building-at-8th-mile"
+  | "residential-building-at-dasarahalli"
+  | "vibgyor-maintenance-work";
 
 export const projectOrder: ProjectSlug[] = [
-  "commercial-building-8th-mile",
-  "residential-dasarahalli",
-  "maintenance-vibgyor",
+  "commercial-building-at-8th-mile",
+  "residential-building-at-dasarahalli",
+  "vibgyor-maintenance-work",
 ];
+
+export const legacyProjectSlugs: Record<string, ProjectSlug> = {
+  "commercial-building-8th-mile": "commercial-building-at-8th-mile",
+  "residential-dasarahalli": "residential-building-at-dasarahalli",
+  "maintenance-vibgyor": "vibgyor-maintenance-work",
+};
 
 function media(file: string) {
   return `${import.meta.env.BASE_URL}media/${file}`;
@@ -136,7 +144,7 @@ export const projects: Record<
     images: Photo[];
   }
 > = {
-  "commercial-building-8th-mile": {
+  "commercial-building-at-8th-mile": {
     year: "2025",
     client: "Prakash B S",
     category: "commercial",
@@ -145,7 +153,7 @@ export const projects: Record<
       { id: "frame", src: media("project-01.jpg"), orientation: "portrait" },
     ],
   },
-  "residential-dasarahalli": {
+  "residential-building-at-dasarahalli": {
     year: "2026",
     client: "Shiva Kumar",
     category: "residential",
@@ -154,7 +162,7 @@ export const projects: Record<
       { id: "masonry", src: media("project-02.jpg"), orientation: "portrait" },
     ],
   },
-  "maintenance-vibgyor": {
+  "vibgyor-maintenance-work": {
     year: "2026",
     client: "VIBGYOR",
     category: "maintenance",

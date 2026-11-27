@@ -8,7 +8,7 @@ export function NotFoundPage() {
 
   return (
     <>
-      <PageMeta title={t.meta.notFoundTitle} description={t.notFound.body} />
+      <PageMeta title={t.meta.notFoundTitle} description={t.notFound.body} noindex />
       <section className="bg-navy py-20 text-white sm:py-28">
         <Container className="max-w-xl">
           <div className="h-px w-14 bg-gold" aria-hidden="true" />

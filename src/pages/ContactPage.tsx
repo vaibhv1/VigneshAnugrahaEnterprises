@@ -3,10 +3,10 @@ import { company } from "../data/site";
 import { useLanguage } from "../context/LanguageContext";
 import { EnquiryForm } from "../components/enquiry/EnquiryForm";
 import { Container } from "../components/ui/Container";
-import { Note } from "../components/ui/Note";
 import { PageBanner } from "../components/ui/PageBanner";
 import { PageMeta } from "../components/ui/PageMeta";
 import { mapsUrl, whatsappUrl } from "../lib/whatsapp";
+import { track } from "../lib/analytics";
 
 export function ContactPage() {
   const { t } = useLanguage();
@@ -40,7 +40,11 @@ export function ContactPage() {
             <ul className="mt-8 space-y-4">
               {company.phones.map((phone) => (
                 <li key={phone.tel}>
-                  <a href={`tel:${phone.tel}`} className="inline-flex items-center gap-3 text-navy">
+                  <a
+                    href={`tel:${phone.tel}`}
+                    className="inline-flex items-center gap-3 text-navy"
+                    onClick={() => track("phone_click", { location: "contact" })}
+                  >
                     <Phone className="h-4 w-4 text-gold-ink" aria-hidden="true" />
                     <span>
                       <span className="block text-xs uppercase tracking-wider text-muted">{t.contact.call}</span>
@@ -50,7 +54,11 @@ export function ContactPage() {
                 </li>
               ))}
               <li>
-                <a href={`mailto:${company.email}`} className="inline-flex items-center gap-3 text-navy">
+                <a
+                  href={`mailto:${company.email}`}
+                  className="inline-flex items-center gap-3 text-navy"
+                  onClick={() => track("email_click", { location: "contact" })}
+                >
                   <Mail className="h-4 w-4 text-gold-ink" aria-hidden="true" />
                   <span>
                     <span className="block text-xs uppercase tracking-wider text-muted">{t.contact.email}</span>
@@ -65,6 +73,7 @@ export function ContactPage() {
                     target="_blank"
                     rel="noreferrer"
                     className="inline-flex items-center gap-3 text-navy"
+                    onClick={() => track("whatsapp_click", { location: "contact" })}
                   >
                     <MessageCircle className="h-4 w-4 text-gold-ink" aria-hidden="true" />
                     <span>
@@ -86,15 +95,19 @@ export function ContactPage() {
               </div>
               <div>
                 <dt className="text-muted">{t.contact.hoursLabel}</dt>
-                <dd className="mt-1">
-                  <Note>{t.contact.hoursValue}</Note>
-                </dd>
+                <dd className="text-navy">{t.contact.hoursValue}</dd>
               </div>
             </dl>
+            <a
+              href={company.profilePdf}
+              download
+              className="mt-6 inline-flex text-sm font-semibold text-navy underline decoration-gold underline-offset-4"
+            >
+              {t.about.downloadProfile}
+            </a>
           </div>
           <div className="border border-line bg-white p-5 sm:p-8">
             <h2 className="font-display text-3xl text-navy">{t.contact.formTitle}</h2>
-            <p className="mt-3 text-sm leading-relaxed text-muted">{t.contact.formLede}</p>
             <div className="mt-6">
               <EnquiryForm />
             </div>

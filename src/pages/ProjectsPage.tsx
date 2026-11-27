@@ -16,7 +16,9 @@ import { Container } from "../components/ui/Container";
 import { PageBanner } from "../components/ui/PageBanner";
 import { PageMeta } from "../components/ui/PageMeta";
 import { ProjectCard } from "../components/ui/ProjectCard";
+import { EnquiryBand } from "../components/ui/EnquiryBand";
 import { SectionHeading } from "../components/ui/SectionHeading";
+import { track } from "../lib/analytics";
 
 function isCategory(value: string | null): value is ProjectCategory {
   return projectCategories.includes(value as ProjectCategory);
@@ -78,6 +80,7 @@ export function ProjectsPage() {
           </div>
         </Container>
       </section>
+      <EnquiryBand />
     </>
   );
 }
@@ -101,6 +104,7 @@ function FeaturedEntry({ slug }: { slug: (typeof projectOrder)[number] }) {
       location={copy.location}
       summary={copy.card}
       action={t.home.viewProject}
+      onClick={() => track("project_click", { project: slug, location: "projects" })}
     />
   );
 }
@@ -131,6 +135,7 @@ function ListingCard({ slug }: { slug: (typeof projectOrder)[number] }) {
       summary={copy.card}
       action={t.home.viewProject}
       titleAs="h2"
+      onClick={() => track("project_click", { project: slug, location: "projects" })}
     />
   );
 }

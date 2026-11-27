@@ -7,12 +7,16 @@ export function ServiceCard({
   title,
   body,
   index,
+  action,
+  onClick,
 }: {
   href?: string;
   icon: LucideIcon;
   title: string;
   body: string;
   index?: string;
+  action?: string;
+  onClick?: () => void;
 }) {
   const className =
     "group flex h-full flex-col border border-line bg-white p-6 transition duration-200 hover:border-gold motion-reduce:transition-none";
@@ -28,6 +32,7 @@ export function ServiceCard({
       <p className="mt-3 flex-1 text-sm leading-relaxed text-muted">{body}</p>
       {href ? (
         <span className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-navy">
+          {action}
           <ArrowRight className="h-4 w-4 transition duration-200 group-hover:translate-x-1 motion-reduce:transform-none" aria-hidden="true" />
         </span>
       ) : null}
@@ -36,7 +41,7 @@ export function ServiceCard({
 
   if (href) {
     return (
-      <Link to={href} className={className}>
+      <Link to={href} className={className} onClick={onClick}>
         {content}
       </Link>
     );

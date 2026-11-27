@@ -1,24 +1,24 @@
 export const en = {
   meta: {
-    homeTitle: "Vignesh Anugraha Enterprises | Construction & infrastructure, Bengaluru",
+    homeTitle: "Vignesh Anugraha Enterprises | Construction in Bengaluru",
     homeDescription:
-      "Bengaluru proprietorship for civil construction, renovation, material supply, installation and building services. Enquire on WhatsApp.",
-    aboutTitle: "About the company | Vignesh Anugraha Enterprises",
+      "Civil construction, renovation, material supply, installation and building maintenance in Bengaluru. Office at Kamalanagara. Call or WhatsApp to enquire.",
+    aboutTitle: "About Us | Vignesh Anugraha Enterprises, Bengaluru",
     aboutDescription:
-      "Vision, mission, values and registered particulars of Vignesh Anugraha Enterprises, a Bengaluru construction proprietorship.",
-    servicesTitle: "Services | Vignesh Anugraha Enterprises",
+      "Vignesh Anugraha Enterprises is a Bengaluru proprietorship led by Santhosh Kumar H. Construction, material supply, installation and building maintenance.",
+    servicesTitle: "Construction Services in Bengaluru | Vignesh Anugraha Enterprises",
     servicesDescription:
-      "Civil construction, material supply and installation, renovation, plumbing and electrical, infrastructure, interiors, fabrication, sports infrastructure and building maintenance.",
-    projectsTitle: "Selected work | Vignesh Anugraha Enterprises",
+      "Civil works, materials, renovation, plumbing and electrical, infrastructure, interiors, fabrication, sports infrastructure and building maintenance in Bengaluru.",
+    projectsTitle: "Projects in Bengaluru | Vignesh Anugraha Enterprises",
     projectsDescription:
-      "Commercial, residential and maintenance work named in the Vignesh Anugraha Enterprises company profile, with the profile photographs.",
+      "A commercial building at 8th Mile, a residential building at Dasarahalli, and maintenance work in Yelahanka, Kadugodi, Chokkanahalli, Jakkur and Hennur.",
     projectTitleSuffix: "Vignesh Anugraha Enterprises",
-    approachTitle: "How we deliver | Vignesh Anugraha Enterprises",
+    approachTitle: "How We Deliver | Vignesh Anugraha Enterprises",
     approachDescription:
-      "Scope definition, resource planning, execution, inspection and the quality, safety and site-care practices described in the company profile.",
-    contactTitle: "Contact | Vignesh Anugraha Enterprises",
+      "How Vignesh Anugraha Enterprises defines scope, plans resources, carries out the work, and checks quality and safety.",
+    contactTitle: "Contact Us | Vignesh Anugraha Enterprises, Bengaluru",
     contactDescription:
-      "Office address in Kamalanagara, Bengaluru, phone, email and a WhatsApp enquiry for Vignesh Anugraha Enterprises.",
+      "Kamalanagara, Bengaluru 560079. Call +91 79964 63956 or +91 63605 39661, or email vigneshanugrahaenterprises@outlook.com.",
     notFoundTitle: "Page not found | Vignesh Anugraha Enterprises",
   },
   a11y: {
@@ -38,12 +38,12 @@ export const en = {
   },
   nav: {
     home: "Home",
-    about: "About",
+    about: "About Us",
     services: "Services",
     projects: "Projects",
     approach: "Approach",
-    contact: "Contact",
-    enquire: "Enquire",
+    contact: "Contact Us",
+    enquire: "Discuss your project",
   },
   footer: {
     blurb:
@@ -57,15 +57,15 @@ export const en = {
     rights: "All rights reserved.",
     sourceNote:
       "Particulars on this website are taken from the company profile. Scope, specifications and commercial terms are confirmed for each project.",
-    whatsappNote: "Enquiry messages are composed in WhatsApp. This website does not store them.",
+    whatsappNote: "The enquiry form opens WhatsApp with the message ready to send.",
   },
   home: {
     eyebrow: "Bengaluru, Karnataka",
     title: "Vignesh Anugraha Enterprises",
     tagline: "Building with integrity. Delivering with commitment.",
     lede: "Construction, infrastructure and building maintenance solutions delivered with a focus on quality, safety and accountability.",
-    primaryCta: "Explore services",
-    secondaryCta: "View projects",
+    primaryCta: "Explore our services",
+    secondaryCta: "Discuss your project",
     heroCaptionKicker: "Profile photograph · Project 01",
     heroCaption:
       "Commercial building, 8th Mile, Bengaluru, 2025. The photograph shows a multi-storey concrete frame during construction.",
@@ -97,6 +97,18 @@ export const en = {
     workLede:
       "Client, place, year and scope are shown only as the profile states them. The profile does not include testimonials or contract values.",
     viewProject: "Project details",
+    viewAll: "View all projects",
+    learnMore: "Learn more",
+    audienceEyebrow: "How to enquire",
+    audienceTitle: "Tell us which kind of work you need.",
+    businessTitle: "Business and institutional enquiries",
+    businessBody:
+      "For organisations, institutions, contractors, developers and vendors. The company takes up defined construction, material supply, installation and maintenance packages.",
+    businessCta: "Discuss a business project",
+    individualTitle: "Individual customer enquiries",
+    individualBody:
+      "For property owners looking for civil work, renovation, plumbing and electrical work, interiors or building maintenance.",
+    individualCta: "Discuss your requirements",
     approachIndex: "05",
     approachEyebrow: "How we deliver",
     approachTitle: "A sequence that keeps scope, materials and site work visible.",
@@ -105,7 +117,7 @@ export const en = {
     closeTitle: "Let's build something that lasts.",
     closeBody:
       "We welcome enquiries for clearly defined construction, renovation, supply and installation packages. Each proposal is prepared against the client's requirements and the technical information available.",
-    closeCta: "Send an enquiry",
+    closeCta: "Discuss your project",
   },
   vision: {
     title: "Our vision",
@@ -140,6 +152,7 @@ export const en = {
     title: "Services",
     lede: "We undertake a broad range of construction and building improvement activities. The exact scope, specifications, quantities and execution methodology are confirmed project by project.",
     note: "Services involving specialised design, statutory approvals or licensed trades are undertaken through appropriately qualified professionals and are subject to applicable approvals.",
+    discuss: "Discuss this service",
     items: {
       civil: {
         title: "Civil construction",
@@ -245,6 +258,7 @@ export const en = {
       "#291, 2nd Floor, 1st Main Road, 1st Cross, Kamalanagara, Bengaluru 560079, India",
     experienceNote:
       "The company information table states 3 years. A services graphic in the same profile says “1–3 years”. This website follows the table.",
+    downloadProfile: "Download the company profile",
   },
   projects: {
     eyebrow: "Selected work",
@@ -273,11 +287,11 @@ export const en = {
     photoDisclaimer:
       "Captions describe what is visible. They do not add scope beyond the written project entry.",
     extraEyebrow: "Further photographs",
-    extraTitle: "Site photographs without a project name.",
+    extraTitle: "Photographs from the sites.",
     extraLede:
-      "After the labelled Project 03 photographs, the profile includes further images and does not say which project they belong to. They are shown here with a description of what is visible, until the company confirms the assignment.",
+      "Construction and maintenance activity recorded on site.",
     entries: {
-      "commercial-building-8th-mile": {
+      "commercial-building-at-8th-mile": {
         title: "Commercial building",
         location: "8th Mile, Bengaluru",
         summary:
@@ -290,7 +304,7 @@ export const en = {
             "Multi-storey reinforced-concrete building frame under construction, with materials at ground level and people on the upper slab. Profile photograph for the commercial building project at 8th Mile.",
         },
       },
-      "residential-dasarahalli": {
+      "residential-building-at-dasarahalli": {
         title: "Residential building",
         location: "Dasarahalli, Bengaluru",
         summary:
@@ -302,7 +316,7 @@ export const en = {
             "A residential structure under construction, with brick masonry above a concrete floor and bamboo scaffolding. Profile photograph for the Dasarahalli project.",
         },
       },
-      "maintenance-vibgyor": {
+      "vibgyor-maintenance-work": {
         title: "Maintenance work",
         location: "Yelahanka, Kadugodi, Chokkanahalli, Jakkur and Hennur, Bengaluru",
         summary:
@@ -329,23 +343,23 @@ export const en = {
     },
     extraAlts: {
       court:
-        "A blue and red sports-court surface in front of a multi-storey building. The company profile does not name this photograph.",
+        "A blue and red sports-court surface in front of a multi-storey building.",
       facade:
-        "Pigeon netting being fixed over windows of a yellow building. The company profile does not name this photograph.",
+        "Pigeon netting being fixed over windows of a yellow building.",
       courtJoint:
-        "A person working along a joint in a blue court surface at night. The company profile does not name this photograph.",
+        "A person working along a joint in a blue court surface at night.",
       stair:
-        "A staircase covered in green carpet, with a stainless-steel railing and green netting beside it. The company profile does not name this photograph.",
+        "A staircase covered in green carpet, with a stainless-steel railing and green netting beside it.",
       enclosure:
-        "A tall green steel-and-net enclosure being installed on open ground beside a low building. The company profile does not name this photograph.",
+        "A tall green steel-and-net enclosure being installed on open ground beside a low building.",
       drain:
-        "A grated channel being worked on beside a fenced court. The company profile does not name this photograph.",
+        "A grated channel being worked on beside a fenced court.",
       basketball:
-        "A basketball backboard and hoop beside chain-link fencing at dusk. The company profile does not name this photograph.",
+        "A basketball backboard and hoop beside chain-link fencing at dusk.",
       netA:
-        "Close view of green netting and a steel tube against the sky. The company profile does not name this photograph.",
+        "Close view of green netting and a steel tube against the sky.",
       netB:
-        "Close view of a green netted frame, with trees beyond. The company profile does not name this photograph.",
+        "Close view of a green netted frame, with trees beyond.",
     },
   },
   approach: {
@@ -432,23 +446,30 @@ export const en = {
     title: "Talk to the company.",
     lede: "Share drawings, a specification or a short description of the work. A site visit is part of the usual engagement, where the project calls for one.",
     hoursLabel: "Office hours",
-    hoursValue:
-      "Not stated in the company profile. Call or send a message to agree a time.",
+    hoursValue: "9:00 am to 10:00 pm, all seven days.",
     map: "Open the address in Google Maps",
     call: "Call",
     email: "Email",
     whatsapp: "WhatsApp",
     formTitle: "Enquiry",
     formLede:
-      "Choose either WhatsApp number. The form opens WhatsApp with your message ready to send. Submissions are not stored on this website.",
+      "Choose either WhatsApp number. The form opens WhatsApp with your message ready to send. Nothing is stored on the website itself.",
   },
   form: {
-    name: "Name",
+    name: "Full name",
     phone: "Mobile number",
     email: "Email",
     emailOptional: "Optional",
-    interest: "What is the enquiry about?",
-    message: "Requirement",
+    company: "Company name",
+    location: "Project location",
+    enquiryType: "Enquiry type",
+    types: {
+      business: "Business / institutional",
+      individual: "Individual customer",
+      other: "Other",
+    },
+    interest: "Service interested in",
+    message: "Project requirements",
     messageHint: "Location, type of work, drawings you have, and any timing you already know.",
     submit: "Continue in WhatsApp",
     sending: "Opening WhatsApp…",
@@ -460,8 +481,11 @@ export const en = {
       name: "Enter your name.",
       phone: "Enter a 10-digit Indian mobile number.",
       email: "Enter a valid email, or leave this blank.",
+      enquiryType: "Choose an enquiry type.",
       message: "Describe the requirement in at least a few words.",
     },
+    emailCopyFailed: "The email copy could not be sent. WhatsApp is still opening so the enquiry is not lost.",
+    sheetNote: "A copy is also added to the company's private enquiry sheet.",
     whatsappIntro: "Website enquiry — Vignesh Anugraha Enterprises",
   },
   whatsappFloat: "Chat on WhatsApp",

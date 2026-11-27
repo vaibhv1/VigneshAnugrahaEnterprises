@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { company, serviceOrder } from "../../data/site";
 import { footerNav } from "../../data/navigation";
 import { useLanguage } from "../../context/LanguageContext";
+import { track } from "../../lib/analytics";
 import { mapsUrl } from "../../lib/whatsapp";
 import { Logo } from "./Logo";
 
@@ -16,6 +17,9 @@ export function Footer() {
           <Logo tone="light" />
           <p className="mt-5 max-w-sm text-sm leading-relaxed text-paper/75">{t.footer.blurb}</p>
           <p className="mt-4 font-display text-lg text-brass">{t.footer.tagline}</p>
+          <a href={company.profilePdf} download className="mt-4 inline-block text-sm text-brass underline underline-offset-4">
+            {t.about.downloadProfile}
+          </a>
         </div>
         <div className="lg:col-span-2">
           <h2 className="text-xs font-semibold uppercase tracking-[0.16em] text-brass">{t.footer.explore}</h2>
@@ -34,7 +38,11 @@ export function Footer() {
           <ul className="mt-4 space-y-2 text-sm">
             {serviceOrder.map((id) => (
               <li key={id}>
-                <Link to={`/services#${id}`} className="text-paper/80 hover:text-brass">
+                <Link
+                  to={`/services#${id}`}
+                  className="text-paper/80 hover:text-brass"
+                  onClick={() => track("service_click", { service: id, location: "footer" })}
+                >
                   {t.services.items[id].title}
                 </Link>
               </li>
@@ -55,13 +63,17 @@ export function Footer() {
           <ul className="mt-4 space-y-2 text-sm text-paper/80">
             {company.phones.map((phone) => (
               <li key={phone.tel}>
-                <a href={`tel:${phone.tel}`} className="hover:text-brass">
+                <a href={`tel:${phone.tel}`} className="hover:text-brass" onClick={() => track("phone_click", { location: "footer" })}>
                   {phone.display}
                 </a>
               </li>
             ))}
             <li>
-              <a href={`mailto:${company.email}`} className="break-all hover:text-brass">
+              <a
+                href={`mailto:${company.email}`}
+                className="break-all hover:text-brass"
+                onClick={() => track("email_click", { location: "footer" })}
+              >
                 {company.email}
               </a>
             </li>

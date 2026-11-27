@@ -20,8 +20,8 @@ type Shared = {
   children: ReactNode;
 };
 
-type AsLink = Shared & { to: string; href?: undefined };
-type AsAnchor = Shared & { href: string; to?: undefined };
+type AsLink = Shared & { to: string; href?: undefined; onClick?: () => void };
+type AsAnchor = Shared & { href: string; to?: undefined; onClick?: () => void };
 type AsButton = Shared &
   { to?: undefined; href?: undefined } & Omit<ButtonHTMLAttributes<HTMLButtonElement>, "className" | "children">;
 
@@ -29,14 +29,20 @@ export function Button({ variant = "primary", className, children, ...props }: A
   const classes = cn(base, variants[variant], className);
   if ("to" in props && props.to) {
     return (
-      <Link to={props.to} className={classes}>
+      <Link to={props.to} className={classes} onClick={props.onClick}>
         {children}
       </Link>
     );
   }
   if ("href" in props && props.href) {
+    const external = props.href.startsWith("http");
     return (
-      <a href={props.href} className={classes}>
+      <a
+        href={props.href}
+        className={classes}
+        onClick={props.onClick}
+        {...(external ? { target: "_blank", rel: "noreferrer" } : {})}
+      >
         {children}
       </a>
     );

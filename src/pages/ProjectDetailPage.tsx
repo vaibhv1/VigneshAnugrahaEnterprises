@@ -1,7 +1,8 @@
-import { useParams } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
 import {
   coverPhoto,
   frameFor,
+  legacyProjectSlugs,
   maintenanceScopeOrder,
   projectOrder,
   projects,
@@ -15,6 +16,7 @@ import { Breadcrumb } from "../components/ui/Breadcrumb";
 import { Container } from "../components/ui/Container";
 import { Note } from "../components/ui/Note";
 import { PageMeta } from "../components/ui/PageMeta";
+import { EnquiryBand } from "../components/ui/EnquiryBand";
 import { NotFoundPage } from "./NotFoundPage";
 
 function isSlug(value: string): value is ProjectSlug {
@@ -24,6 +26,9 @@ function isSlug(value: string): value is ProjectSlug {
 export function ProjectDetailPage() {
   const { slug = "" } = useParams();
   const { t } = useLanguage();
+
+  const canonical = legacyProjectSlugs[slug];
+  if (canonical) return <Navigate to={`/projects/${canonical}`} replace />;
 
   if (!isSlug(slug)) return <NotFoundPage />;
 
@@ -53,7 +58,10 @@ export function ProjectDetailPage() {
 
   return (
     <>
-      <PageMeta title={`${copy.title} | ${t.meta.projectTitleSuffix}`} description={copy.summary} />
+      <PageMeta
+        title={`${copy.title}, ${copy.location} | ${t.meta.projectTitleSuffix}`}
+        description={`${copy.card} ${copy.location}.`}
+      />
       <section className="border-b border-line bg-mist">
         <Container className="py-10 sm:py-14">
           <Breadcrumb
@@ -83,7 +91,7 @@ export function ProjectDetailPage() {
         <Container className="grid gap-12 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:items-start">
           <div>
             <h2 className="font-display text-3xl text-navy">{t.projects.scopeLabel}</h2>
-            {slug === "maintenance-vibgyor" ? (
+            {slug === "vibgyor-maintenance-work" ? (
               <ul className="mt-4 divide-y divide-line border-y border-line">
                 {maintenanceScopeOrder.map((id) => (
                   <li key={id} className="py-3 text-ink/85">
@@ -100,7 +108,6 @@ export function ProjectDetailPage() {
           </div>
           <div>
             <h2 className="font-display text-3xl text-navy">{t.projects.photographs}</h2>
-            <p className="mt-3 text-sm leading-relaxed text-muted">{t.projects.photoDisclaimer}</p>
             <figure className="mt-6">
               <CoverImage
                 src={lead.src}
@@ -110,7 +117,6 @@ export function ProjectDetailPage() {
                 fetchPriority="high"
                 className={`${leadFrame.aspect} w-full ${lead.orientation === "portrait" ? "max-w-md" : ""}`}
               />
-              <figcaption className="mt-3 max-w-xl text-sm leading-relaxed text-muted">{leadAlt}</figcaption>
             </figure>
             {further.length > 0 ? (
               <div className="mt-8">
@@ -120,6 +126,7 @@ export function ProjectDetailPage() {
           </div>
         </Container>
       </section>
+      <EnquiryBand message={`Hello, I would like to enquire about ${copy.title} with Vignesh Anugraha Enterprises.`} />
       <ProjectPager previous={previous} next={next} />
     </>
   );

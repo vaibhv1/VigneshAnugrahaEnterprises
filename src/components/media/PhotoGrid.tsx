@@ -64,7 +64,6 @@ export function PhotoGrid({ photos }: { photos: GalleryPhoto[] }) {
                   />
                   <span className="sr-only">{t.a11y.enlarge}</span>
                 </button>
-                <figcaption className="mt-2 text-sm leading-relaxed text-muted">{photo.alt}</figcaption>
               </figure>
             </li>
           );
@@ -123,9 +122,6 @@ export function PhotoGrid({ photos }: { photos: GalleryPhoto[] }) {
                 <ChevronRight className="h-5 w-5" aria-hidden="true" />
               </button>
             </div>
-            <p className="mx-auto max-w-3xl px-5 py-4 text-center text-sm leading-relaxed text-paper/85">
-              {active.alt}
-            </p>
           </div>
         ) : null}
       </dialog>

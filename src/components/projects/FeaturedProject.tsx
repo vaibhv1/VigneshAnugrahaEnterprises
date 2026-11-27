@@ -16,6 +16,7 @@ export function FeaturedProject({
   location,
   summary,
   action,
+  onClick,
 }: {
   href: string;
   imageSrc: string;
@@ -28,6 +29,7 @@ export function FeaturedProject({
   location: string;
   summary: string;
   action: string;
+  onClick?: () => void;
 }) {
   const frame = frameFor(orientation);
   const portrait = orientation === "portrait";
@@ -35,6 +37,7 @@ export function FeaturedProject({
   return (
     <Link
       to={href}
+      onClick={onClick}
       className={cn(
         "group grid overflow-hidden border border-line bg-white transition duration-200 hover:border-gold motion-reduce:transition-none",
         portrait ? "lg:grid-cols-[minmax(16rem,24rem)_1fr]" : "lg:grid-cols-2",
@@ -56,8 +59,7 @@ export function FeaturedProject({
         <p className="mt-4 text-sm text-muted">
           {client} · {location}
         </p>
-        <p className="mt-5 max-w-xl text-base leading-relaxed text-ink/85">{summary}</p>
-        <p className="mt-6 max-w-xl border-t border-line pt-4 text-sm leading-relaxed text-muted">{imageAlt}</p>
+        <p className="mt-5 max-w-xl flex-1 text-base leading-relaxed text-ink/85">{summary}</p>
         <span className="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-navy">
           {action}
           <ArrowRight

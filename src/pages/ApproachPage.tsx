@@ -9,6 +9,7 @@ import { useLanguage } from "../context/LanguageContext";
 import { Container } from "../components/ui/Container";
 import { PageBanner } from "../components/ui/PageBanner";
 import { PageMeta } from "../components/ui/PageMeta";
+import { EnquiryBand } from "../components/ui/EnquiryBand";
 import { ProcessTimeline } from "../components/ui/ProcessTimeline";
 import { SectionHeading } from "../components/ui/SectionHeading";
 
@@ -96,6 +97,7 @@ export function ApproachPage() {
           <p className="mt-8 max-w-3xl font-display text-2xl leading-snug text-navy">{t.approach.commitmentClose}</p>
         </Container>
       </section>
+      <EnquiryBand />
     </>
   );
 }

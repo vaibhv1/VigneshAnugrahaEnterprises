@@ -16,6 +16,8 @@ import { ProcessTimeline } from "../components/ui/ProcessTimeline";
 import { SectionHeading } from "../components/ui/SectionHeading";
 import { ServiceCard } from "../components/ui/ServiceCard";
 import { serviceIcons } from "../components/services/serviceIcons";
+import { track } from "../lib/analytics";
+import { whatsappUrl } from "../lib/whatsapp";
 
 const sectorIcons: Record<SectorId, LucideIcon> = {
   education: GraduationCap,
@@ -27,9 +29,9 @@ const sectorIcons: Record<SectorId, LucideIcon> = {
 
 export function HomePage() {
   const { t } = useLanguage();
-  const hero = projects["commercial-building-8th-mile"].images[0];
-  const intro = projects["residential-dasarahalli"];
-  const introCopy = t.projects.entries["residential-dasarahalli"];
+  const hero = projects["commercial-building-at-8th-mile"].images[0];
+  const intro = projects["residential-building-at-dasarahalli"];
+  const introCopy = t.projects.entries["residential-building-at-dasarahalli"];
 
   return (
     <>
@@ -40,15 +42,15 @@ export function HomePage() {
         headline={t.home.tagline}
         lede={t.home.lede}
         imageSrc={hero.src}
-        imageAlt={t.projects.entries["commercial-building-8th-mile"].alts.frame}
+        imageAlt={t.projects.entries["commercial-building-at-8th-mile"].alts.frame}
         captionKicker={t.home.heroCaptionKicker}
         caption={t.home.heroCaption}
         actions={
           <>
-            <Button to="/services" variant="gold">
+            <Button to="/services" variant="gold" onClick={() => track("enquiry_cta_click", { location: "hero_services" })}>
               {t.home.primaryCta}
             </Button>
-            <Button to="/projects" variant="ghost">
+            <Button to="/contact" variant="ghost" onClick={() => track("enquiry_cta_click", { location: "hero" })}>
               {t.home.secondaryCta}
             </Button>
           </>
@@ -69,6 +71,38 @@ export function HomePage() {
               </div>
             ))}
           </dl>
+        </Container>
+      </section>
+
+      <section className="border-b border-line bg-white py-16 sm:py-20">
+        <Container>
+          <SectionHeading eyebrow={t.home.audienceEyebrow} title={t.home.audienceTitle} />
+          <div className="mt-10 grid gap-5 lg:grid-cols-2">
+            <article className="flex h-full flex-col border border-line bg-navy p-7 text-white">
+              <h3 className="font-display text-3xl">{t.home.businessTitle}</h3>
+              <p className="mt-4 flex-1 text-sm leading-relaxed text-white/80">{t.home.businessBody}</p>
+              <Button
+                to="/contact?audience=business"
+                variant="gold"
+                className="mt-8 self-start"
+                onClick={() => track("enquiry_cta_click", { location: "audience_business" })}
+              >
+                {t.home.businessCta}
+              </Button>
+            </article>
+            <article className="flex h-full flex-col border border-line bg-mist p-7">
+              <h3 className="font-display text-3xl text-navy">{t.home.individualTitle}</h3>
+              <p className="mt-4 flex-1 text-sm leading-relaxed text-muted">{t.home.individualBody}</p>
+              <Button
+                to="/contact?audience=individual"
+                variant="primary"
+                className="mt-8 self-start"
+                onClick={() => track("enquiry_cta_click", { location: "audience_individual" })}
+              >
+                {t.home.individualCta}
+              </Button>
+            </article>
+          </div>
         </Container>
       </section>
 
@@ -124,6 +158,8 @@ export function HomePage() {
                   index={String(index + 1).padStart(2, "0")}
                   title={t.services.items[id].title}
                   body={t.services.items[id].body}
+                  action={t.home.learnMore}
+                  onClick={() => track("service_click", { service: id, location: "home" })}
                 />
               </li>
             ))}
@@ -162,11 +198,16 @@ export function HomePage() {
                     meta={`${project.client} · ${copy.location}`}
                     summary={copy.card}
                     action={t.home.viewProject}
+                    onClick={() => track("project_click", { project: slug, location: "home" })}
                   />
                 </li>
               );
             })}
           </ul>
+          <Link to="/projects" className="mt-10 inline-flex items-center gap-2 text-sm font-semibold text-navy">
+            {t.home.viewAll}
+            <ArrowRight className="h-4 w-4" aria-hidden="true" />
+          </Link>
         </Container>
       </section>
 
@@ -234,11 +275,23 @@ export function HomePage() {
         body={t.home.closeBody}
         action={
           <>
-            <Button to="/contact" variant="gold">
+            <Button to="/contact" variant="gold" onClick={() => track("enquiry_cta_click", { location: "home_close" })}>
               {t.home.closeCta}
             </Button>
+            <Button
+              href={whatsappUrl(t.whatsappGreeting, company.phones[0].whatsapp)}
+              variant="ghost"
+              onClick={() => track("whatsapp_click", { location: "home_close" })}
+            >
+              {t.contact.whatsapp}
+            </Button>
             {company.phones.map((phone) => (
-              <Button key={phone.tel} href={`tel:${phone.tel}`} variant="ghost">
+              <Button
+                key={phone.tel}
+                href={`tel:${phone.tel}`}
+                variant="ghost"
+                onClick={() => track("phone_click", { location: "home_close" })}
+              >
                 {phone.display}
               </Button>
             ))}

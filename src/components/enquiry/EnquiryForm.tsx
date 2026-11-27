@@ -1,16 +1,25 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
+import { useSearchParams } from "react-router-dom";
 import { company, serviceOrder, type ServiceId } from "../../data/site";
 import { useLanguage } from "../../context/LanguageContext";
 import { en } from "../../i18n/en";
+import { track } from "../../lib/analytics";
+import { recordEnquiry } from "../../lib/enquirySheet";
 import { openWhatsApp } from "../../lib/whatsapp";
+
+type EnquiryType = "business" | "individual" | "other";
 
 type FormValues = {
   name: string;
   phone: string;
   email: string;
+  company: string;
+  location: string;
+  enquiryType: EnquiryType | "";
   interest: string;
   message: string;
+  website: string;
 };
 
 const fieldClass =
@@ -22,18 +31,50 @@ function isMobile(value: string) {
   return /^[6-9]\d{9}$/.test(local);
 }
 
+function isService(value: string | null): value is ServiceId {
+  return serviceOrder.includes(value as ServiceId);
+}
+
 export function EnquiryForm() {
   const { t } = useLanguage();
+  const [params] = useSearchParams();
   const [sentUrl, setSentUrl] = useState<string | null>(null);
+  const [notice, setNotice] = useState<string | null>(null);
+  const started = useRef(false);
+  const audience = params.get("audience");
+  const service = params.get("service");
+  const defaultType: EnquiryType | "" =
+    audience === "individual" || audience === "business" ? audience : "";
+  const sheetConfigured = Boolean(import.meta.env.VITE_ENQUIRY_SHEET_URL && import.meta.env.VITE_ENQUIRY_SHEET_SECRET);
+
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<FormValues>({
-    defaultValues: { name: "", phone: "", email: "", interest: "general", message: "" },
+    defaultValues: {
+      name: "",
+      phone: "",
+      email: "",
+      company: "",
+      location: "",
+      enquiryType: defaultType,
+      interest: isService(service) ? service : "general",
+      message: "",
+      website: "",
+    },
   });
 
-  const onSubmit = (number: string) => (values: FormValues) => {
+  const markStarted = () => {
+    if (started.current) return;
+    started.current = true;
+    track("form_start");
+  };
+
+  const onSubmit = (number: string) => async (values: FormValues) => {
+    if (values.website.trim()) return;
+    const enquiryType = values.enquiryType || "other";
+    const typeLabel = en.form.types[enquiryType];
     const interest =
       values.interest === "general"
         ? en.form.general
@@ -43,16 +84,65 @@ export function EnquiryForm() {
       `Name: ${values.name.trim()}`,
       `Phone: ${values.phone.trim()}`,
       values.email.trim() ? `Email: ${values.email.trim()}` : null,
+      values.company.trim() ? `Company: ${values.company.trim()}` : null,
+      `Enquiry type: ${typeLabel}`,
       `Interest: ${interest}`,
+      values.location.trim() ? `Project location: ${values.location.trim()}` : null,
       "",
       values.message.trim(),
     ].filter((line): line is string => line !== null);
+
+    setNotice(null);
+    const formspree = import.meta.env.VITE_FORMSPREE_ID;
+    if (formspree) {
+      try {
+        const response = await fetch(`https://formspree.io/f/${formspree}`, {
+          method: "POST",
+          headers: { Accept: "application/json", "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name: values.name.trim(),
+            phone: values.phone.trim(),
+            email: values.email.trim(),
+            company: values.company.trim(),
+            enquiryType: typeLabel,
+            interest,
+            location: values.location.trim(),
+            message: values.message.trim(),
+          }),
+        });
+        if (!response.ok) setNotice(t.form.emailCopyFailed);
+      } catch {
+        setNotice(t.form.emailCopyFailed);
+      }
+    }
+
+    const destination = company.phones.find((phone) => phone.whatsapp === number);
+    await recordEnquiry({
+      name: values.name.trim(),
+      phone: values.phone.trim(),
+      email: values.email.trim(),
+      interest,
+      language: "English",
+      message: values.message.trim(),
+      whatsappNumber: destination?.display ?? "",
+    });
+    track("form_submit", { enquiry_type: enquiryType, interest: values.interest });
+    track("whatsapp_click", { location: "enquiry_form" });
     const url = openWhatsApp(lines.join("\n"), number);
     setSentUrl(url);
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit(company.phones[0].whatsapp))} noValidate className="space-y-5">
+    <form
+      onSubmit={handleSubmit(onSubmit(company.phones[0].whatsapp))}
+      onFocus={markStarted}
+      noValidate
+      className="space-y-5"
+    >
+      <div className="absolute -left-[9999px]" aria-hidden="true">
+        <label htmlFor="website">Website</label>
+        <input id="website" tabIndex={-1} autoComplete="off" {...register("website")} />
+      </div>
       <div>
         <label htmlFor="name" className="text-sm font-medium text-navy">
           {t.form.name}
@@ -98,8 +188,7 @@ export function EnquiryForm() {
       </div>
       <div>
         <label htmlFor="email" className="text-sm font-medium text-navy">
-          {t.form.email}{" "}
-          <span className="font-normal text-muted">({t.form.emailOptional})</span>
+          {t.form.email} <span className="font-normal text-muted">({t.form.emailOptional})</span>
         </label>
         <input
           id="email"
@@ -119,10 +208,38 @@ export function EnquiryForm() {
         ) : null}
       </div>
       <div>
-        <label htmlFor="interest" className="text-sm font-medium text-navy">
-          {t.form.interest}
+        <label htmlFor="company" className="text-sm font-medium text-navy">
+          {t.form.company} <span className="font-normal text-muted">({t.form.emailOptional})</span>
         </label>
-        <select id="interest" className={fieldClass} aria-required="true" {...register("interest", { required: true })}>
+        <input id="company" autoComplete="organization" className={fieldClass} {...register("company")} />
+      </div>
+      <div>
+        <label htmlFor="enquiryType" className="text-sm font-medium text-navy">
+          {t.form.enquiryType}
+        </label>
+        <select
+          id="enquiryType"
+          className={fieldClass}
+          aria-required="true"
+          aria-invalid={errors.enquiryType ? true : undefined}
+          {...register("enquiryType", { required: t.form.errors.enquiryType })}
+        >
+          <option value="">{t.form.errors.enquiryType}</option>
+          <option value="business">{t.form.types.business}</option>
+          <option value="individual">{t.form.types.individual}</option>
+          <option value="other">{t.form.types.other}</option>
+        </select>
+        {errors.enquiryType ? (
+          <p className="mt-1 text-sm text-red-800" role="alert">
+            {errors.enquiryType.message}
+          </p>
+        ) : null}
+      </div>
+      <div>
+        <label htmlFor="interest" className="text-sm font-medium text-navy">
+          {t.form.interest} <span className="font-normal text-muted">({t.form.emailOptional})</span>
+        </label>
+        <select id="interest" className={fieldClass} {...register("interest")}>
           <option value="general">{t.form.general}</option>
           {serviceOrder.map((id) => (
             <option key={id} value={id}>
@@ -130,6 +247,12 @@ export function EnquiryForm() {
             </option>
           ))}
         </select>
+      </div>
+      <div>
+        <label htmlFor="location" className="text-sm font-medium text-navy">
+          {t.form.location} <span className="font-normal text-muted">({t.form.emailOptional})</span>
+        </label>
+        <input id="location" className={fieldClass} {...register("location")} />
       </div>
       <div>
         <label htmlFor="message" className="text-sm font-medium text-navy">
@@ -147,7 +270,9 @@ export function EnquiryForm() {
             minLength: { value: 10, message: t.form.errors.message },
           })}
         />
-        <p id="message-hint" className="mt-2 text-sm text-muted">{t.form.messageHint}</p>
+        <p id="message-hint" className="mt-2 text-sm text-muted">
+          {t.form.messageHint}
+        </p>
         {errors.message ? (
           <p id="message-error" className="mt-1 text-sm text-red-800" role="alert">
             {errors.message.message}
@@ -163,17 +288,30 @@ export function EnquiryForm() {
             onClick={handleSubmit(onSubmit(phone.whatsapp))}
             className="inline-flex bg-navy px-5 py-3 text-sm font-medium text-paper hover:bg-navy-deep disabled:opacity-60"
           >
-            {t.contact.whatsapp} {phone.display}
+            {isSubmitting ? t.form.sending : `${t.contact.whatsapp} ${phone.display}`}
           </button>
         ))}
       </div>
-      <p className="text-sm leading-relaxed text-muted">{t.contact.formLede}</p>
+      <p className="text-sm leading-relaxed text-muted">{sheetConfigured ? t.form.sheetNote : t.contact.formLede}</p>
+      {notice ? (
+        <p className="text-sm text-red-800" role="alert">
+          {notice}
+        </p>
+      ) : null}
       {sentUrl ? (
         <div className="border border-line bg-sand px-4 py-3 text-sm leading-relaxed" role="status">
           <p>{t.form.success}</p>
-          <a href={sentUrl} target="_blank" rel="noreferrer" className="mt-2 inline-block font-medium text-navy underline">
-            {t.form.retry}
-          </a>
+          {sentUrl.startsWith("http") ? (
+            <a
+              href={sentUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="mt-2 inline-block font-medium text-navy underline"
+              onClick={() => track("whatsapp_click", { location: "enquiry_retry" })}
+            >
+              {t.form.retry}
+            </a>
+          ) : null}
         </div>
       ) : null}
     </form>

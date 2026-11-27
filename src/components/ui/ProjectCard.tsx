@@ -16,6 +16,7 @@ export function ProjectCard({
   action,
   layout = "stack",
   titleAs = "h3",
+  onClick,
 }: {
   href: string;
   imageSrc: string;
@@ -30,6 +31,7 @@ export function ProjectCard({
   action: string;
   layout?: "stack" | "horizontal";
   titleAs?: "h2" | "h3";
+  onClick?: () => void;
 }) {
   const Title = titleAs;
   const horizontal = layout === "horizontal";
@@ -37,6 +39,7 @@ export function ProjectCard({
   return (
     <Link
       to={href}
+      onClick={onClick}
       className={`group flex h-full overflow-hidden border border-line bg-white transition duration-200 hover:border-gold motion-reduce:transition-none ${
         horizontal ? "flex-col lg:flex-row" : "flex-col"
       }`}

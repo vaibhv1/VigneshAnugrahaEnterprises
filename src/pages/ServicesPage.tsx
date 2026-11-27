@@ -1,10 +1,13 @@
+import { Link } from "react-router-dom";
 import { serviceOrder } from "../data/site";
 import { useLanguage } from "../context/LanguageContext";
 import { serviceIcons } from "../components/services/serviceIcons";
 import { Container } from "../components/ui/Container";
+import { EnquiryBand } from "../components/ui/EnquiryBand";
 import { Note } from "../components/ui/Note";
 import { PageBanner } from "../components/ui/PageBanner";
 import { PageMeta } from "../components/ui/PageMeta";
+import { track } from "../lib/analytics";
 
 export function ServicesPage() {
   const { t } = useLanguage();
@@ -36,12 +39,20 @@ export function ServicesPage() {
                 </div>
                 <h2 className="mt-6 font-display text-3xl text-navy">{item.title}</h2>
                 <p className="mt-3 max-w-3xl leading-relaxed text-ink/85">{item.body}</p>
+                <Link
+                  to={`/contact?service=${id}`}
+                  className="mt-6 inline-flex text-sm font-semibold text-navy"
+                  onClick={() => track("service_click", { service: id, location: "services" })}
+                >
+                  {t.services.discuss}
+                </Link>
               </article>
             );
           })}
           <Note>{t.services.note}</Note>
         </Container>
       </section>
+      <EnquiryBand />
     </>
   );
 }
